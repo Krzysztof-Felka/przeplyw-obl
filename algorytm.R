@@ -84,3 +84,11 @@ Algorytm:
         *h < 0.2 m            v_h = v_0.5h
         *0.2 <= h <= 0.6 m    v_h = 0.33 * (v_0.15h + v_0.5h + v_0.85h)
         *h > 0.6 m            v_h = 0.1 * (v_d + 2 * v_0.2h + 2 * v_0.6h + 2 * v_0.8h + v_p)
+  
+  -wrzucamy dane o średniej prędkości przepływu w pionie do df głębokości
+  
+  -dokańczamy obliczenia, do których nam tych danych brakowało
+  
+  -sumujemy przepływ cząstkowy
+  
+  -dajemy ten przepływ cząstkowy na wyjście
