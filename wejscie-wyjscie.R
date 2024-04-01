@@ -4,6 +4,7 @@ Na wejściu dostajemy:
   - które z pionów sondażowych są pionami pomiarowymi
   - współczynniki alfa i beta młynku pomiarowego (dwa sety dla różnych zasięgów liczby obrotów)
   - głębokość pomiarów w pionie pomiarowym, liczba obrotów młynka i czas pomiaru.
+  - współczynnik redukcyjny prędkości fita 
 
 
 Na wyjściu wydajemy:

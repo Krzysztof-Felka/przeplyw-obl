@@ -33,11 +33,37 @@ Algorytm:
   -przyjmujemy na wejściu zestaw danych pomiarowych o prędkośći na poszczególnych głębokościach 
     w poszczególnych pionach; każdy wiersz odpowiada pionu pomiarowemu
      
-  -stwarzamy df z n kolumnami i tyloma wierszami, ile jest pionów pomiarowych
+  -stwarzamy df z 29 kolumnami i tyloma wierszami, ile jest pionów pomiarowych (w naszym przypadku 5)
     
   -lista kolumn:
-    * nr pionu - dostajemy
-    * 
+    * nr pionu - dostajemy na wejściu (liczba arabska)
+    * odległość od brzegu - dostajemy na wejściu
+    * głębokość w pionie - h - dostajemy na wejściu
+    * czas pomiaru - t - dostajemy na wejściu, w sekundach
+    * liczba obrotów przy powierzchni - l_pow - dostajemy na wejściu
+    * liczba obrotów na 0.8h - l_0.8h - dostajemy na wejściu
+    * liczba obrotów na 0.6h - l_0.6h - dostajemy na wejściu
+    * liczba obrotów na 0.4h - l_0.4h - dostajemy na wejściu
+    * liczba obrotów na 0.2h - l_0.2h - dostajemy na wejściu
+    * liczba obrotów przy dnie - l_dno - dostajemy na wejściu
+    * głębokość na 0.8h - 0.8h - obliczamy: 0.8h = h - 0.8 * h 
+    * głębokość na 0.6h - 0.6h - obliczamy: 0.6h = h - 0.6 * h 
+    * głębokość na 0.4h - 0.4h - obliczamy: 0.4h = h - 0.4 * h 
+    * głębokość na 0.2h - 0.2h - obliczamy: 0.2h = h - 0.2 * h 
+    * obroty na sekundę przy powierzchni - n_pow - obliczamy: n_pow = l_pow / t
+    * obroty na sekundę na 0.8h - n_0.8h - obliczamy: n_0.8h = l_0.8h / t
+    * obroty na sekundę na 0.6h - n_0.6h - obliczamy: n_0.6h = l_0.6h / t
+    * obroty na sekundę na 0.4h - n_0.4h - obliczamy: n_0.4h = l_0.4h / t
+    * obroty na sekundę na 0.2h - n_0.2h - obliczamy: n_0.2h = l_0.2h / t
+    * obroty na sekundę przy dnie - n_dno - obliczamy: n_dno = l_dno / t
+    * prędkość przy powierzchni - v_pow - obliczamy: v_pow = alfa + beta * n_pow 
+    * prędkość na 0.8h - v_0.8h - obliczamy: v_0.8h = alfa + beta * n_0.8h 
+    * prędkość na 0.6h - v_0.6h - obliczamy: v_0.6h = alfa + beta * n_0.6h 
+    * prędkość na 0.4h - v_0.4h - obliczamy: v_0.4h = alfa + beta * n_0.4h 
+    * prędkość na 0.2h - v_0.2h - obliczamy: v_0.2h = alfa + beta * n_0.2h 
+    * prędkość przy dnie - v_dno - obliczamy: v_dno = alfa + beta * n_dno
+    * średnia prędkość w pionie - obliczamy:
+      
   -obliczamy średnią prędkość przepływu w pionie. wzór zależy od głębokośći pionu, metody i warunków (przepływ swobodny 
                                                                     vs. zarastanie koryta/pokrywa lodowa)
     
