@@ -19,7 +19,7 @@ for (i in c(2:15)){
 df_glebokosci$gl_srednia = c(rep(0,15))
 #oblicza średnią głębokość między pionami sondażowymi
 for (i in c(2:15)){
-  df_glebokosci$gl_srednia[[i]] = (df_glebokosci$glebokosc[[i]] + df_glebokosci$glebokosc[[i-1]])/2
+  (df_glebokosci$gl_srednia[[i]] = (df_glebokosci$glebokosc[[i]] + df_glebokosci$glebokosc[[i-1]])/2)
 }
 
 #gleb_srednia = round(c(((df_glebokosci$glebokosc[[1]] + df_glebokosci$glebokosc[[2]])/2), 
@@ -67,3 +67,5 @@ for (i in c(1:15)) {
     copy$nr_pionu[[i]] = NA
   }
 }
+
+
