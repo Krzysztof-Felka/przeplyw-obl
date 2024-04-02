@@ -125,4 +125,10 @@ for (i in c(1:piony_sondowania)) {
   
 }
 
-#obliczanie przeplywu w przekroju
+#obliczanie przepływu w przekroju
+
+df_glebokosci$przepl_czastkowy = c(rep(NA, piony_pomiarowe))
+df_glebokosci$przepl_czastkowy = df_glebokosci$v_sr_pole * df_glebokosci$suma_pow
+
+q = sum(df_glebokosci$przepl_czastkowy, na.rm = T)
+q
