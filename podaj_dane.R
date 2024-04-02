@@ -90,9 +90,22 @@ rozpocznij = function(){
     stop("Niepoprawna wartość, podaj 1, 2, 3, lub 4.")
   }
   cat("Podaj dane sondażowe\n")
-  
-  
+  glebokosc_pion = as.numeric(readline("Podaj głębokości w pionach sondażowych c(a, b, c,...n): "))
+  if (glebokosc_pion == numeric()){
+    
+  } else (glebokosc_pion != numeric()){
+    stop("Niepoprawna wartość, podaj wartość numeryczną.")
+  }
+  odl_od_lew_brzeg = as.numeric(readline("Podaj odległości od od lewego brzegu c(a, b, c,...n): "))
+  if (odl_od_lew_brzeg = numeric()){
+    
+  } else (odl_od_lew_brzeg != numeric()){
+    stop("Niepoprawna wartość, podaj wartość numeryczną.")
+  }
+  data.frame(odl_od_lew_brzeg,
+             nr_pionu = length(glebokosc_pion),
+             )
 }
 
 rozpocznij()
-1
+length()
