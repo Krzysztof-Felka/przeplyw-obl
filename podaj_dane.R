@@ -6,9 +6,9 @@ rozpocznij = function(){
   
   alfa1 = as.numeric(readline("Podaj pierwszy współczynnik alfa: "))
   
-  if (alfa1 == numeric()){
-    alfa1 = alfa1
-  } else if (alfa1 != numeric()){
+  if (alfa1 == is.numeric(alfa1)){
+    alfa1 = vector(alfa1, mode = numeric)
+  } else if (alfa1 != is.numeric(alfa1)){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
   beta1 = as.numeric(readline("Podaj pierwszy współczynnik beta: "))
@@ -66,7 +66,8 @@ rozpocznij = function(){
   przeplyw = as.numeric(readline("Wybierz (1 lub 2) : "))
   if (przeplyw == 1){
     
-  } else if {
+  } else if (przeplyw ==2 ) {
+    
     
   } else {
     stop("Niepoprawna wartość, podaj 1 lub 2.")
@@ -96,4 +97,5 @@ rozpocznij()
 0.23
 0.014
 1.21
+1
   
