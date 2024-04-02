@@ -92,3 +92,10 @@ Algorytm:
   -sumujemy przepływ cząstkowy
   
   -dajemy ten przepływ cząstkowy na wyjście
+        
+        
+        UPD:
+          1. uwzględnić podawanie na wejściu, co twój młynek jest w stanie pomierzyć:
+              a. liczba obrotów w odcinku czasu - startowy przypadek
+              b. liczba obrotów na sekundę - przepisujemy wartości w od razu w te pola, pomijamy krok obliczeń
+              c. prędkośc przepływu w punkcie - przepisujemy wartości od razu w te pola, pomijamy dwa kroki obliczeń
