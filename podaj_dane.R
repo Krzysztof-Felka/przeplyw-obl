@@ -1,11 +1,11 @@
 # funkcja rozpocznij będzie 
 
 rozpocznij = function(){
-  
+  # tutaj wprowadzanie danych z młynka
   cat("Podaj dane młynka, współczynniki alfa oraz beta oraz granice zastosowań tych wartości.\n")
   
   alfa1 = as.numeric(readline("Podaj pierwszy współczynnik alfa: "))
-  
+  # sekcja sprawdza czy podana wartość jest numeryczna, nie działa :(
   if (alfa1 == is.numeric(alfa1)){
     alfa1 = vector(alfa1, mode = numeric)
   } else if (alfa1 != is.numeric(alfa1)){
@@ -33,7 +33,7 @@ rozpocznij = function(){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
   granica_min1 = as.numeric(readline("Podaj pierwszą granicę minimalną: "))
-  
+  # sekcja w której podaje się granice i sprawdza czy wartość jest numeryczna
   if (granica_min1 == numeric()){
     granica_min1 = granica_min1
   } else if (granica_min1 != numeric()){
@@ -60,6 +60,7 @@ rozpocznij = function(){
   } else if (granica_max2 != numeric()){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
+  # wybór rodzaju stanu przepływu
   cat("Podaj stan przepływu.\n")
   cat("1. Przepływ swobodny.\n")
   cat("2. Koryto zarastające/z pokrywą lodową.\n")
@@ -72,7 +73,7 @@ rozpocznij = function(){
   } else {
     stop("Niepoprawna wartość, podaj 1 lub 2.")
   }
-  
+  # wybór warunków brzegowych 
   cat("Warianty warunków brzegowych.\n")
   cat("1. woda przy brzegu nie płynie ze względu na silne zarastanie lub istnieje przekrój nieczynny (fi = 0.5)\n")
   cat("2. brzeg płaski i wyrównany (fi = 0.7)\n")
