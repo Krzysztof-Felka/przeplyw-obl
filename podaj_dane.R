@@ -7,7 +7,7 @@ rozpocznij = function(){
   alfa1 = as.numeric(readline("Podaj pierwszy współczynnik alfa: "))
   
   if (alfa1 == numeric()){
-    afla1 = alfa1
+    alfa1 = alfa1
   } else if (alfa1 != numeric()){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
@@ -21,7 +21,7 @@ rozpocznij = function(){
   alfa2 = as.numeric(readline("Podaj drugi współczynnik alfa: "))
   
   if (alfa2 == numeric()){
-    afla2 = alfa2
+    alfa2 = alfa2
   } else if (alfa2 != numeric()){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
@@ -89,23 +89,11 @@ rozpocznij = function(){
   } else {
     stop("Niepoprawna wartość, podaj 1, 2, 3, lub 4.")
   }
-  cat("Podaj dane sondażowe\n")
-  glebokosc_pion = as.numeric(readline("Podaj głębokości w pionach sondażowych c(a, b, c,...n): "))
-  if (glebokosc_pion == numeric()){
-    
-  } else (glebokosc_pion != numeric()){
-    stop("Niepoprawna wartość, podaj wartość numeryczną.")
-  }
-  odl_od_lew_brzeg = as.numeric(readline("Podaj odległości od od lewego brzegu c(a, b, c,...n): "))
-  if (odl_od_lew_brzeg = numeric()){
-    
-  } else (odl_od_lew_brzeg != numeric()){
-    stop("Niepoprawna wartość, podaj wartość numeryczną.")
-  }
-  data.frame(odl_od_lew_brzeg,
-             nr_pionu = length(glebokosc_pion),
-             glebokosc_pion,)
+  
 }
-
+ 
 rozpocznij()
-length()
+0.23
+0.014
+1.21
+  
