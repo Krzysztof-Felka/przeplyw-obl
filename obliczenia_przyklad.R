@@ -91,4 +91,48 @@ for (i in c(1:15)){
     suma = 0
   }
 }
->>>>>>> a383261da9ab98f835a6de71e82db3d96d8f7fd4
+
+#przepisuje średnią prędkość w pionie do df_głębokości
+df_glebokosci$v_sr_pion = c(rep(NA,15))
+licznik = 1
+for (i in c(1:nrow(df_glebokosci))){
+  if (!is.na(df_glebokosci$nr_pionu[[i]])){
+    df_glebokosci$v_sr_pion[[i]] = df_predkosci$v_sr_pion[[licznik]]
+    licznik = licznik + 1
+  }
+}
+
+#obliczanie średniej prędkości w przekroju
+
+fita = 0.7
+df_glebokosci$v_sr_pole = c(rep(NA,15))
+licznik = 1
+
+for (i in c(1:piony_sondowania)) {
+  if (!is.na(df_glebokosci$suma_pow[[i]])){
+    
+    if (licznik == 1){
+      df_glebokosci$v_sr_pole[[i]] = df_glebokosci$v_sr_pion[[i]] * fita
+      v_prev = df_glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik != piony_pomiarowe + 1 ){
+      df_glebokosci$v_sr_pole[[i]] = (v_prev + df_glebokosci$v_sr_pion[[i]]) / 2
+      v_prev = df_glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik == piony_pomiarowe + 1){
+      df_glebokosci$v_sr_pole[[piony_sondowania]] = v_prev * fita
+    }
+    
+  }
+  
+}
+
+#obliczanie przepływu w przekroju
+
+df_glebokosci$przepl_czastkowy = c(rep(NA, piony_pomiarowe))
+df_glebokosci$przepl_czastkowy = df_glebokosci$v_sr_pole * df_glebokosci$suma_pow
+
+q = sum(df_glebokosci$przepl_czastkowy, na.rm = T)
+
