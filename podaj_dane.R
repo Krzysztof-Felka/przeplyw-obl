@@ -104,7 +104,7 @@ rozpocznij = function(){
   }
   data.frame(odl_od_lew_brzeg,
              nr_pionu = length(glebokosc_pion),
-             )
+             glebokosc_pion,)
 }
 
 rozpocznij()
