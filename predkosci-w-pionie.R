@@ -26,8 +26,8 @@ for (i in c(0:5)) {
 #ze względu na to, że nasz wzorzec z grubsza mieści się w jednym swoim zakresie, użyjemy jego.
 #
 #ATTENTION! ZAKRESY UŻYWANIA WSP TAROWANIA NAKŁADAJĄ SIĘ NA SIEBIE, TO TRZEBA ROZWIĄZAĆ!
-#ogólnie te wspołczynniki nie powinny być użyte, ale nasz przykład wziął je, mimo że wartości n wychodziły
-#poza zakres jednegol, ale mieściły się w drugim
+#ogólnie te współczynniki nie powinny być użyte, ale nasz przykład wziął je, mimo że wartości n wychodziły
+#poza zakres jednego, ale mieściły się w drugim
 
 alfa = 0.014 
 beta = 0.247
@@ -53,7 +53,4 @@ for (i in 1:5) {
   else {
     df_predkosci[i,23] = 0.1 * ( df_predkosci[i,22] + 2 * df_predkosci[i, 21] + 3 * df_predkosci[i,20] + 3 * df_predkosci[i,18] + df_predkosci[i, 17])
   }
-  
 }
-
-#SPRAWDZIĆ OBLICZENIE DLA PIONU 3!!!
