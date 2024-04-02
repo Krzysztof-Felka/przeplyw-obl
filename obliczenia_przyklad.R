@@ -10,6 +10,9 @@ df_predkosci
 
 df_glebokosci
 
+piony_sondowania = nrow(df_glebokosci)
+piony_pomiarowe = nrow(df_predkosci)
+
 df_glebokosci$odl_miedzy_pionami = c(rep(0,15))
 #oblicza odległość między pionami sondażowymi
 for (i in c(2:15)){
@@ -61,10 +64,11 @@ df_glebokosci$powierzchnia = c(rep(0,15))
 for (i in c(1:15)){
   df_glebokosci$powierzchnia[[i]] = df_glebokosci$odl_miedzy_pionami[[i]] * df_glebokosci$gl_srednia[[i]]
 }
-copy = df_glebokosci
+
+#przenieść to później do definicja df
 for (i in c(1:15)) {
-  if (copy$nr_pionu[[i]] == '0'){
-    copy$nr_pionu[[i]] = NA
+  if (df_glebokosci$nr_pionu[[i]] == '0'){
+    df_glebokosci$nr_pionu[[i]] = NA
   }
 }
 
@@ -87,4 +91,41 @@ for (i in c(1:15)){
     df_glebokosci$suma_pow[[i]] = suma
     suma = 0
   }
+}
+
+#przepisuje średnią prędkość w pionie do df_głębokości
+df_glebokosci$v_sr_pion = c(rep(NA,15))
+licznik = 1
+for (i in c(1:nrow(df_glebokosci))){
+  if (!is.na(df_glebokosci$nr_pionu[[i]])){
+    df_glebokosci$v_sr_pion[[i]] = df_predkosci$v_sr_pion[[licznik]]
+    licznik = licznik + 1
+  }
+}
+
+#obliczanie średniej prędkości w przekroju
+
+fita = 0.7
+df_glebokosci$v_sr_pole = c(rep(NA,15))
+licznik = 1
+
+for (i in c(1:piony_sondowania)) {
+  if (!is.na(df_glebokosci$suma_pow[[i]])){
+    
+    if (licznik == 1){
+      df_glebokosci$v_sr_pole[[i]] = df_glebokosci$v_sr_pion[[i]] * fita
+      v_prev = df_glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik != piony_pomiarowe + 1 ){
+      df_glebokosci$v_sr_pole[[i]] = (v_prev + df_glebokosci$v_sr_pion[[i]]) / 2
+      v_prev = df_glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik == piony_pomiarowe + 1){
+      df_glebokosci$v_sr_pole[[piony_sondowania]] = v_prev * fita
+    }
+    
+  }
+  
 }
