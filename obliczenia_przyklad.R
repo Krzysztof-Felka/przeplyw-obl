@@ -67,3 +67,24 @@ for (i in c(1:15)) {
     copy$nr_pionu[[i]] = NA
   }
 }
+
+#oblicza powierzchnię pomiędzy pionami pomiarowymi
+piony = is.na(copy$nr_pionu)
+piony[length(piony)] = F
+df_glebokosci$suma_pow = c(rep(NA,15))
+suma = 0
+
+for (i in c(1:15)){
+  if (piony[i] == T){
+    suma = suma + df_glebokosci$powierzchnia[[i]]
+    print(piony[i])
+    print(suma)
+  }
+  else {
+    suma = suma + df_glebokosci$powierzchnia[[i]]
+    print(piony[i])
+    print(suma)
+    df_glebokosci$suma_pow[[i]] = suma
+    suma = 0
+  }
+}
