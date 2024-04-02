@@ -124,3 +124,5 @@ for (i in c(1:piony_sondowania)) {
   }
   
 }
+
+#obliczanie przeplywu w przekroju
