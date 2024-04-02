@@ -22,7 +22,7 @@ for (i in c(2:15)){
 df_glebokosci$gl_srednia = c(rep(0,15))
 #oblicza średnią głębokość między pionami sondażowymi
 for (i in c(2:15)){
-  df_glebokosci$gl_srednia[[i]] = (df_glebokosci$glebokosc[[i]] + df_glebokosci$glebokosc[[i-1]])/2
+  (df_glebokosci$gl_srednia[[i]] = (df_glebokosci$glebokosc[[i]] + df_glebokosci$glebokosc[[i-1]])/2)
 }
 
 #gleb_srednia = round(c(((df_glebokosci$glebokosc[[1]] + df_glebokosci$glebokosc[[2]])/2), 
@@ -71,9 +71,8 @@ for (i in c(1:15)) {
     df_glebokosci$nr_pionu[[i]] = NA
   }
 }
-
-#oblicza powierzchnię pomiędzy pionami pomiarowymi
-piony = is.na(copy$nr_pionu)
+#oblicza powierzchnie pomiędzy pionami pomiarowymi 
+piony = is.na(df_glebokosci$nr_pionu)
 piony[length(piony)] = F
 df_glebokosci$suma_pow = c(rep(NA,15))
 suma = 0
@@ -81,13 +80,9 @@ suma = 0
 for (i in c(1:15)){
   if (piony[i] == T){
     suma = suma + df_glebokosci$powierzchnia[[i]]
-    print(piony[i])
-    print(suma)
   }
   else {
     suma = suma + df_glebokosci$powierzchnia[[i]]
-    print(piony[i])
-    print(suma)
     df_glebokosci$suma_pow[[i]] = suma
     suma = 0
   }
