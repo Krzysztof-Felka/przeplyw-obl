@@ -10,9 +10,6 @@ df_predkosci
 
 df_glebokosci
 
-piony_sondowania = nrow(df_glebokosci)
-piony_pomiarowe = nrow(df_predkosci)
-
 df_glebokosci$odl_miedzy_pionami = c(rep(0,15))
 #oblicza odległość między pionami sondażowymi
 for (i in c(2:15)){
@@ -64,15 +61,18 @@ df_glebokosci$powierzchnia = c(rep(0,15))
 for (i in c(1:15)){
   df_glebokosci$powierzchnia[[i]] = df_glebokosci$odl_miedzy_pionami[[i]] * df_glebokosci$gl_srednia[[i]]
 }
-
-#przenieść to później do definicja df
+copy = df_glebokosci
 for (i in c(1:15)) {
-  if (df_glebokosci$nr_pionu[[i]] == '0'){
-    df_glebokosci$nr_pionu[[i]] = NA
+  if (copy$nr_pionu[[i]] == '0'){
+    copy$nr_pionu[[i]] = NA
   }
 }
-#oblicza powierzchnie pomiędzy pionami pomiarowymi 
-piony = is.na(df_glebokosci$nr_pionu)
+
+<<<<<<< HEAD
+
+=======
+#oblicza powierzchnię pomiędzy pionami pomiarowymi
+piony = is.na(copy$nr_pionu)
 piony[length(piony)] = F
 df_glebokosci$suma_pow = c(rep(NA,15))
 suma = 0
@@ -80,9 +80,13 @@ suma = 0
 for (i in c(1:15)){
   if (piony[i] == T){
     suma = suma + df_glebokosci$powierzchnia[[i]]
+    print(piony[i])
+    print(suma)
   }
   else {
     suma = suma + df_glebokosci$powierzchnia[[i]]
+    print(piony[i])
+    print(suma)
     df_glebokosci$suma_pow[[i]] = suma
     suma = 0
   }
@@ -131,4 +135,4 @@ df_glebokosci$przepl_czastkowy = c(rep(NA, piony_pomiarowe))
 df_glebokosci$przepl_czastkowy = df_glebokosci$v_sr_pole * df_glebokosci$suma_pow
 
 q = sum(df_glebokosci$przepl_czastkowy, na.rm = T)
-q
+
