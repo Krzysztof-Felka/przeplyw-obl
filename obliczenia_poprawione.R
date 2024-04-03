@@ -33,7 +33,7 @@ granica_max1 = 71
 granica_max2 = 100
 
 #sprawdzanie, czy liczba zmierzonych obrotów nie wychodzi poza zakres maksymalny młynka i ewentualne
-#poinformowanie użytkownika, że obliczenia nie będą dokładne, bo pomiar wychodzi poza zakres przyrządu
+#poinformowanie użytkownika, że obliczenia nie będą dokładne, bo pomiar wychodzi poza zakres przyrządu ----
 licznik = 0
 for (j in 0:5) {
   
@@ -51,7 +51,38 @@ if (licznik !=0 ) {
       "\nWykonane obliczenia przepływu nie będą dokładne")
 }
 
-#sprawdzenie, jakie granice są większe, jakie wsp alfa i beta muszą być użyte do wartości 
-#i obliczanie prędkości przepływu w punkcie
+#sprawdzenie, jakie wsp alfa i beta muszą być użyte do wartości 
+#i obliczanie prędkości przepływu w punkcie ----
+
+#zakładamy, że min i max 2 są większymi granicami
+for (j in 0:5) {
+  
+  for (i in 1:piony_pomiar) {
+    
+    if(!is.na(predkosci[i,5+j]) && predkosci[i,5+j] < granica_max1){
+      predkosci[i,17+j] = alfa1 + predkosci[i,11+j] * beta1
+    }
+    else 
+      predkosci[i,17+j] = alfa2 + predkosci[i,11+j] * beta2
+    
+  }
+}
+
+#obliczanie średniej prędkości w pionie ----
+
+for (i in 1:piony_pomiar) {
+  if (predkosci[i, 3] < 0.2) {
+    predkosci[i,23] = round( predkosci[i, 20], 2)
+  }
+  else if (predkosci[i, 3] >= 0.2 && predkosci[i, 3] <= 0.6){
+    predkosci[i,23] = round( 0.25 * ( predkosci[i, 21] + 2 * predkosci[i,20] + predkosci[i,18]), 2)
+  }
+  else {
+    predkosci[i,23] = round( 0.1 * ( predkosci[i,22] + 2 * predkosci[i, 21] + 3 * predkosci[i,20] + 
+                                3 * predkosci[i,18] + predkosci[i, 17]), 2)
+  }
+}
 
 
+
+#
