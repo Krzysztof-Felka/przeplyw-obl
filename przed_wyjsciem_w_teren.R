@@ -28,5 +28,10 @@ do_roboty = function(){
             file = "Arkusze do uzupelnienia/01pomiar_predkosci.csv",
             row.names = F)
   # Zostaje stworzony plik z 10 kolumnami i jeden wiersz z wartościami 0, które należy zamienić na pierwszy pomiar, następnie kolejny wiersz na drugi pomiar, aż do ostatniego pomiaru.
+  cat("\n\nTen skrypt stworzy również folder 'Arkusze uzupełnione' w ", wd)
+  cat("\nW tym folderze należy umieścić wszystkie arkusze po uzupełnieniu\n")
+  dir.create("Arkusze uzupelnione")
+  
 }
+
 do_roboty()
