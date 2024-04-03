@@ -1,5 +1,6 @@
 # funkcja rozpocznij będzie 
-
+# użyj nastepnego wiersza, jeśli nie masz zainstalowanego pakietu ggplot2
+# install.packages("ggplot2") 
 rozpocznij = function(){
   # tutaj wprowadzanie danych z młynka
   cat("Podaj dane młynka, współczynniki alfa i beta oraz granice zastosowań tych wartości.\n")
@@ -227,6 +228,22 @@ rozpocznij = function(){
   #obliczanie przepływu w przekroju
   
   glebokosci$przepl_czastkowy = glebokosci$v_sr_pole * glebokosci$suma_pow
+  
+  #generowanie szkicu przekroju pomiarowego----
+  library(ggplot2)
+  dir.create("Szkice")
+  
+  szkic = ggplot(glebokosci) + theme_bw() + geom_area(aes(odl_od_brzegu, glebokosc), fill = "skyblue") + 
+    scale_y_reverse() + 
+    labs(title = "Szkic przekroju pomiarowego", y = "Głębokość [m]", x = "Odległość od brzegu [m]")
+  szkic
+  for (i in 1:piony_pomiar) {
+    szkic = szkic + geom_segment(x = predkosci$odl_od_brzegu[[i]], y = - predkosci$gl_w_pionie[[i]], 
+                                 xend = predkosci$odl_od_brzegu[[i]], yend = 0, colour = "red", size = 1)
+    
+  }
+  szkic = szkic + geom_label(data = predkosci, x = predkosci$odl_od_brzegu, y = 0, label = predkosci$nr_pionu)
+  png(file = paste0(c("Szkice/szkic_", sondowanie_gl,".png"), collapse = ""))  
   
   cat("\n")
   #końcowe obliczanie wartości do wyświetlania
