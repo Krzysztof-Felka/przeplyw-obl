@@ -1,6 +1,8 @@
 # utworzenie df zawierających dane z pomiarów w terenie ----
-glebokosci = read.csv("sondowanie_glebokosci.csv", dec = ",", 
-                      col.names = c("odl_od_brzegu", "nr_pionu", "glebokosc"), na.strings = "")
+glebokosci = read.csv("sondowanie_glebokosci.csv", dec = ",", na.strings = "",
+                      col.names = c("odl_od_brzegu", "nr_pionu", "glebokosc", "odl_miedzy_pionami",
+                                    "gl_srednia", "powierzchnia", "suma_pow", "v_sr_pion",
+                                    "v_sr_pole", "przepl_czastkowy") )
 predkosci = read.csv("pomiar_predkosci.csv", dec = ",", na.strings = "",
                      col.names = c("nr_pionu", "odl_od_brzegu", "gl_w_pionie", "czas_pomiaru", 
                                    "l_obr_pow", "l_obr_0.8h", "l_obr_0.6h", "l_obr_0.4h", "l_obr_0.2h", 
@@ -85,4 +87,94 @@ for (i in 1:piony_pomiar) {
 
 
 
-#
+
+
+
+
+#obliczanie wartości z sondowania przekroju
+
+#oblicza odległość między pionami sondażowymi
+for (i in c(2:piony_sond)){
+  glebokosci$odl_miedzy_pionami[[i]] = glebokosci$odl_od_brzegu[[i]] - glebokosci$odl_od_brzegu[[i-1]]
+}
+
+#oblicza średnią głębokość między pionami sondażowymi
+for (i in c(2:piony_sond)){
+  (glebokosci$gl_srednia[[i]] = (glebokosci$glebokosc[[i]] + glebokosci$glebokosc[[i-1]])/2)
+}
+
+#oblicza odległość między pionami sondażowymi
+for (i in c(1:piony_sond)){
+  glebokosci$powierzchnia[[i]] = glebokosci$odl_miedzy_pionami[[i]] * glebokosci$gl_srednia[[i]]
+}
+glebokosci$powierzchnia[[1]] = 0
+
+#oblicza powierzchnię pomiędzy pionami pomiarowymi
+piony = is.na(glebokosci$nr_pionu)
+piony[length(piony)] = F
+suma = 0
+
+for (i in c(1:piony_sond)){
+  if (piony[i]){
+    suma = suma + glebokosci$powierzchnia[[i]]
+  }
+  else {
+    suma = suma + glebokosci$powierzchnia[[i]]
+    glebokosci$suma_pow[[i]] = suma
+    suma = 0
+  }
+}
+
+#przepisuje średnią prędkość w pionie do df_głębokości
+licznik = 1
+for (i in c(1:nrow(glebokosci))){
+  if (!is.na(glebokosci$nr_pionu[[i]])){
+    glebokosci$v_sr_pion[[i]] = predkosci$v_sr_pion[[licznik]]
+    licznik = licznik + 1
+  }
+}
+#obliczanie średniej prędkości w przekroju
+
+fita = 0.7
+licznik = 1
+
+for (i in c(1:piony_sond)) {
+  if (!is.na(glebokosci$suma_pow[[i]])){
+    
+    if (licznik == 1){
+      glebokosci$v_sr_pole[[i]] = glebokosci$v_sr_pion[[i]] * fita
+      v_prev = glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik != piony_pomiar + 1 ){
+      glebokosci$v_sr_pole[[i]] = (v_prev + glebokosci$v_sr_pion[[i]]) / 2
+      v_prev = glebokosci$v_sr_pion[[i]]
+      licznik = licznik + 1
+    }
+    else if (licznik == piony_pomiar + 1){
+      glebokosci$v_sr_pole[[piony_sond]] = v_prev * fita
+    }
+    
+  }
+  
+}
+
+#obliczanie przepływu w przekroju
+
+glebokosci$przepl_czastkowy = glebokosci$v_sr_pole * glebokosci$suma_pow
+
+#końcowe obliczanie wartości do wyświetlania
+#Przeplyw Q
+q = round(sum(glebokosci$przepl_czastkowy, na.rm = T), 2)
+#powierzchnia przekroju F
+f = sum(glebokosci$suma_pow, na.rm = T)
+#szerokość b
+b = glebokosci$odl_od_brzegu[[piony_sond]] - glebokosci$odl_od_brzegu[[1]]
+#głębokość średnia h_śr
+h_sr = round(f/b, 2)
+#głębokość maksymalna h_max
+h_max = max(glebokosci$glebokosc, na.rm = T)
+#prędkość średnia v_sr
+v_sr = round(q/f, 2)
+#prędkość maksymalna v_max
+v_max = round(max(predkosci[,17:22], na.rm = T), 2)
