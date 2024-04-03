@@ -48,19 +48,7 @@ rozpocznij = function(){
   if (is.na(granica_max2)){
     stop("Niepoprawna wartość, podaj wartość numeryczną.")
   }
-  # wybór rodzaju stanu przepływu
-  cat("Podaj stan przepływu.\n")
-  cat("1. Przepływ swobodny.\n")
-  cat("2. Koryto zarastające/z pokrywą lodową.\n")
-  przeplyw = as.numeric(readline("Wybierz (1 lub 2) : "))
-  if (przeplyw == 1){
-    
-  } else if (przeplyw ==2 ) {
-    
-    
-  } else {
-    stop("Niepoprawna wartość, podaj 1 lub 2.")
-  }
+ 
   # wybór warunków brzegowych 
   cat("Warianty warunków brzegowych.\n")
   cat("1. woda przy brzegu nie płynie ze względu na silne zarastanie lub istnieje przekrój nieczynny (fi = 0.5)\n")
@@ -79,11 +67,32 @@ rozpocznij = function(){
   } else {
     stop("Niepoprawna wartość, podaj 1, 2, 3, lub 4.")
   }
+  #odpytanie o nazwy plików z danymi
+  cat("Podaj nazwę pliku, utworzonego na podstawie 01sondowanie_glebokosci.csv w formacie 'nazwa_pliku.csv'")
+  sondowanie_gl = readline("\nPamiętaj, że on powinien być zapisany w folderze 'Arkusze uzupełnione'")
+  glebokosci = read.csv(paste0(c("Arkusze uzupelnione/", sondowanie_gl), collapse = ""), dec = ",", na.strings = "",
+                        col.names = c("odl_od_brzegu", "nr_pionu", "glebokosc", "odl_miedzy_pionami",
+                                      "gl_srednia", "powierzchnia", "suma_pow", "v_sr_pion",
+                                      "v_sr_pole", "przepl_czastkowy") )
   
+  cat("Podaj nazwę pliku, utworzonego na podstawie 01pomiar_predkosci.csv w formacie 'nazwa_pliku.csv'")
+  pomiar_predk = readline("\nPamiętaj, że on powinien być zapisany w folderze 'Arkusze uzupełnione'")
+  predkosci = read.csv( paste0(c("Arkusze uzupelnione/", pomiar_predk), collapse = ""), dec = ",", na.strings = "",
+                        col.names = c("nr_pionu", "odl_od_brzegu", "gl_w_pionie", "czas_pomiaru", 
+                                      "l_obr_pow", "l_obr_0.8h", "l_obr_0.6h", "l_obr_0.4h", "l_obr_0.2h", 
+                                      "l_obr_dno", "n_pow", "n_0.8h", "n_0.6h", "n_0.4h", "n_0.2h", "n_dno",
+                                      "v_pow", "v_0.8h", "v_0.6h", "v_0.4h", "v_0.2h", "v_dno", "v_sr_pion"))
 }
 
 rozpocznij()
-0.23
 0.014
-1.21
+0.247
+0.004
+0.261
+0
+71
+7
+100
 1
+sondowanie_glebokosci.csv
+pomiar_predkosci.csv
