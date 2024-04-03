@@ -1,9 +1,9 @@
 # utworzenie df zawierających dane z pomiarów w terenie ----
-glebokosci = read.csv("sondowanie_glebokosci.csv", dec = ",", na.strings = "",
+glebokosci = read.csv("Arkusze uzupelnione/sondowanie_glebokosci.csv", dec = ",", na.strings = "",
                       col.names = c("odl_od_brzegu", "nr_pionu", "glebokosc", "odl_miedzy_pionami",
                                     "gl_srednia", "powierzchnia", "suma_pow", "v_sr_pion",
                                     "v_sr_pole", "przepl_czastkowy") )
-predkosci = read.csv("pomiar_predkosci.csv", dec = ",", na.strings = "",
+predkosci = read.csv("Arkusze uzupelnione/pomiar_predkosci.csv", dec = ",", na.strings = "",
                      col.names = c("nr_pionu", "odl_od_brzegu", "gl_w_pionie", "czas_pomiaru", 
                                    "l_obr_pow", "l_obr_0.8h", "l_obr_0.6h", "l_obr_0.4h", "l_obr_0.2h", 
                                   "l_obr_dno", "n_pow", "n_0.8h", "n_0.6h", "n_0.4h", "n_0.2h", "n_dno",
@@ -178,3 +178,18 @@ h_max = max(glebokosci$glebokosc, na.rm = T)
 v_sr = round(q/f, 2)
 #prędkość maksymalna v_max
 v_max = round(max(predkosci[,17:22], na.rm = T), 2)
+
+library(ggplot2)
+szkic = ggplot(glebokosci) + theme_bw() + geom_area(aes(odl_od_brzegu, glebokosc), fill = "skyblue") + 
+  scale_y_reverse() + 
+  labs(title = "Szkic przekroju pomiarowego", y = "Głębokość [m]", x = "Odległość od brzegu [m]")
+szkic
+for (i in 1:piony_pomiar) {
+ szkic = szkic + geom_segment(x = predkosci$odl_od_brzegu[[i]], y = - predkosci$gl_w_pionie[[i]], 
+                       xend = predkosci$odl_od_brzegu[[i]], yend = 0, colour = "red", size = 1)
+  
+}
+szkic = szkic + geom_label(data = predkosci, x = predkosci$odl_od_brzegu, y = 0, label = predkosci$nr_pionu)
+szkic  
+ 
+  #geom_abline(aes(odl_od_brzegu, nr_pionu))
