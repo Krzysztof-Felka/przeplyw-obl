@@ -178,7 +178,8 @@ h_max = max(glebokosci$glebokosc, na.rm = T)
 v_sr = round(q/f, 2)
 #prędkość maksymalna v_max
 v_max = round(max(predkosci[,17:22], na.rm = T), 2)
-
+szkic = 0
+szkicowanie = function() {
 library(ggplot2)
 szkic = ggplot(glebokosci) + theme_bw() + geom_area(aes(odl_od_brzegu, glebokosc), fill = "skyblue") + 
   scale_y_reverse() + 
@@ -190,6 +191,7 @@ for (i in 1:piony_pomiar) {
   
 }
 szkic = szkic + geom_label(data = predkosci, x = predkosci$odl_od_brzegu, y = 0, label = predkosci$nr_pionu)
-szkic  
- 
+png(file = "szkic.png")  
+}
+szkic
   #geom_abline(aes(odl_od_brzegu, nr_pionu))
